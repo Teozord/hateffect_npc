@@ -1,0 +1,1 @@
+# hateffect_npc
