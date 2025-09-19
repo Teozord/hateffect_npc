@@ -3214,6 +3214,9 @@ void unit_dataset(struct block_list *bl)
 	ud->canmove_tick   = gettick();
 	ud->sx = 8;
 	ud->sy = 8;
+#if PACKETVER_MAIN_NUM >= 20150507 || PACKETVER_RE_NUM >= 20150429 || defined(PACKETVER_ZERO)
+	ud->hatEffects = {};
+#endif	
 }
 
 /**
@@ -3949,6 +3952,12 @@ int32 unit_free(struct block_list *bl, clr_type clrtype)
 			status_change_clear(bl,1);
 			break;
 		}
+	}
+
+	if (ud) {
+#if PACKETVER_MAIN_NUM >= 20150507 || PACKETVER_RE_NUM >= 20150429 || defined(PACKETVER_ZERO)
+		ud->hatEffects.clear();
+#endif
 	}
 
 	map_deliddb(bl);
